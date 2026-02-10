@@ -1,0 +1,30 @@
+name: Build (Maven)
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 8 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "8"
+          cache: "maven"
+
+      - name: Build (with tests)
+        run: mvn -B -ntp test
+
+      # 如果你只想确认能编译更快（可选）：
+      - name: Package (skip tests)
+        run: mvn -B -ntp -DskipTests package
