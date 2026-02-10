@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 21 (OpenJDK / Temurin)
-      # Temurin 是 OpenJDK 的发行版之一（Eclipse Adoptium）
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -26,6 +25,6 @@ jobs:
       - name: Build (with tests)
         run: mvn -B -ntp test
 
-      # 如果你只想确认能编译更快：
+      # 如果你只想确认能编译更快（可选）：
       - name: Package (skip tests)
-      run: mvn -B -ntp -DskipTests package
+        run: mvn -B -ntp -DskipTests package
